@@ -5,6 +5,8 @@
   using Sitecore.Sites;
   using Sitecore.Web;
   using System;
+  using System.Web;
+  using System.Web.SessionState;
   using System.Web.UI;
   using System.Web.UI.HtmlControls;
   using System.Web.UI.WebControls;
@@ -28,6 +30,17 @@
       string str2 = StringUtil.GetString(textArray2);
       string[] textArray3 = new string[] { base.Request.QueryString["site"] };
       string str3 = StringUtil.GetString(textArray3);
+      if(str == "[unknown]")
+      {
+        try
+        {
+          HttpSessionState aspSession = Context.Items["AspSession"] as HttpSessionState;
+          str = aspSession["WFFM196698URL"].ToString();
+          str2 = aspSession["WFFM196698USER"].ToString();
+          str3 = aspSession["WFFM196698SiTE"].ToString();
+        }
+        catch (NullReferenceException) { }
+      }
       str = WebUtil.SafeEncode(str);
       this.RequestedUrl.Controls.Add(new LiteralControl(str));
       this.UserName.Controls.Add(new LiteralControl(WebUtil.SafeEncode(str2)));

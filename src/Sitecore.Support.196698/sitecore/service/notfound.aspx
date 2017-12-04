@@ -1,5 +1,5 @@
 <%@ OutputCache Location="None" VaryByParam="none" %>
-<%@ Page Language="c#" CodeBehind="notfound.aspx.cs" EnableViewState="false" AutoEventWireup="True" Inherits="SitecoreClient.Page.NotFound" %>
+<%@ Page Language="c#" CodeBehind="notfound.aspx.cs" EnableViewState="false" AutoEventWireup="True" Inherits="Sitecore.Support.SitecoreClient.Page.NotFound" %>
 <!DOCTYPE html>
 <html>
 <head>

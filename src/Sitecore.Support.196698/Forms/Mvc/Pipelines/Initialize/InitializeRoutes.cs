@@ -23,7 +23,7 @@
       {
         controller = "Form",
         action = "Process"
-      });
+      }, new[] { "Sitecore.Support.Forms.Mvc.Controllers" });
     }
 
     protected override void RegisterRoutes(RouteCollection routes, PipelineArgs args)
