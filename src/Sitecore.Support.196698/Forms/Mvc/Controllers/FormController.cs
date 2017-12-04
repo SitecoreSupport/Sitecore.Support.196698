@@ -10,6 +10,7 @@
   using Sitecore.Forms.Mvc.Models;
   using Sitecore.Forms.Mvc.ViewModels;
   using Sitecore.Mvc.Controllers;
+  using Sitecore.Support.Forms.Mvc.Controllers.Filters;
   using Sitecore.WFFM.Abstractions.Dependencies;
   using Sitecore.WFFM.Abstractions.Shared;
   using System;
