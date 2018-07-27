@@ -1,7 +1,5 @@
 ﻿using Sitecore.Configuration;
 using Sitecore.Diagnostics;
-using Sitecore.Forms.Mvc;
-using Sitecore.Forms.Mvc.Attributes;
 using Sitecore.Forms.Mvc.Controllers;
 using Sitecore.Forms.Mvc.Controllers.Filters;
 using Sitecore.Forms.Mvc.Controllers.ModelBinders;
@@ -14,7 +12,7 @@ using Sitecore.WFFM.Abstractions.Shared;
 using System.IO;
 using System.Web.Mvc;
 
-namespace Sitecore.Forms.Mvc.Controllers
+namespace Sitecore.Support.Forms.Mvc.Controllers
 {
   [ModelBinder(typeof(FormModelBinder))]
   public class FormController : SitecoreController
@@ -40,7 +38,7 @@ namespace Sitecore.Forms.Mvc.Controllers
     }
 
     public FormController()
-        : this((IRepository<FormModel>)Factory.CreateObject(Constants.FormRepository, true), (IAutoMapper<IFormModel, FormViewModel>)Factory.CreateObject(Constants.FormAutoMapper, true), (IFormProcessor<FormModel>)Factory.CreateObject(Constants.FormProcessor, true), DependenciesManager.AnalyticsTracker)
+        : this((IRepository<FormModel>)Factory.CreateObject(Sitecore.Forms.Mvc.Constants.FormRepository, true), (IAutoMapper<IFormModel, FormViewModel>)Factory.CreateObject(Sitecore.Forms.Mvc.Constants.FormAutoMapper, true), (IFormProcessor<FormModel>)Factory.CreateObject(Sitecore.Forms.Mvc.Constants.FormProcessor, true), DependenciesManager.AnalyticsTracker)
     {
     }
 
@@ -56,8 +54,8 @@ namespace Sitecore.Forms.Mvc.Controllers
       this.analyticsTracker = analyticsTracker;
     }
 
-    [FormErrorHandler]
-    [HttpGet]
+    [Sitecore.Support.Forms.Mvc.Attributes.FormErrorHandler]
+    [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Head)]
     public override ActionResult Index()
     {
       return Form();
@@ -65,8 +63,8 @@ namespace Sitecore.Forms.Mvc.Controllers
 
     [WffmValidateAntiForgeryToken]
     [HttpPost]
-    [SubmittedFormHandler]
-    [FormErrorHandler]
+    [Sitecore.Support.Forms.Mvc.Controllers.Filters.SubmittedFormHandler]
+    [Sitecore.Support.Forms.Mvc.Attributes.FormErrorHandler]
     public virtual ActionResult Index([ModelBinder(typeof(FormModelBinder))] FormViewModel formViewModel)
     {
       analyticsTracker.InitializeTracker();
@@ -74,7 +72,7 @@ namespace Sitecore.Forms.Mvc.Controllers
     }
 
     [AllowCrossSiteJson]
-    [FormErrorHandler]
+    [Sitecore.Support.Forms.Mvc.Attributes.FormErrorHandler]
     public virtual JsonResult Process([ModelBinder(typeof(FormModelBinder))] FormViewModel formViewModel)
     {
       analyticsTracker.InitializeTracker();
