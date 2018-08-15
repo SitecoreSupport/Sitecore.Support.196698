@@ -15,7 +15,7 @@ using System.Web.Mvc;
 namespace Sitecore.Support.Forms.Mvc.Controllers
 {
   [ModelBinder(typeof(FormModelBinder))]
-  public class FormController : SitecoreController
+  public class FormController : Sitecore.Forms.Mvc.Controllers.FormController
   {
     private readonly IAnalyticsTracker analyticsTracker;
 
@@ -65,7 +65,7 @@ namespace Sitecore.Support.Forms.Mvc.Controllers
     [HttpPost]
     [Sitecore.Support.Forms.Mvc.Controllers.Filters.SubmittedFormHandler]
     [Sitecore.Support.Forms.Mvc.Attributes.FormErrorHandler]
-    public virtual ActionResult Index([ModelBinder(typeof(FormModelBinder))] FormViewModel formViewModel)
+    public override ActionResult Index([ModelBinder(typeof(FormModelBinder))] FormViewModel formViewModel)
     {
       analyticsTracker.InitializeTracker();
       return ProcessedForm(formViewModel, "");
@@ -73,7 +73,7 @@ namespace Sitecore.Support.Forms.Mvc.Controllers
 
     [AllowCrossSiteJson]
     [Sitecore.Support.Forms.Mvc.Attributes.FormErrorHandler]
-    public virtual JsonResult Process([ModelBinder(typeof(FormModelBinder))] FormViewModel formViewModel)
+    public override JsonResult Process([ModelBinder(typeof(FormModelBinder))] FormViewModel formViewModel)
     {
       analyticsTracker.InitializeTracker();
       ProcessedFormResult<FormModel, FormViewModel> processedFormResult = ProcessedForm(formViewModel, "~/Views/Form/Index.cshtml");
@@ -91,7 +91,7 @@ namespace Sitecore.Support.Forms.Mvc.Controllers
       return jsonResult;
     }
 
-    public virtual FormResult<FormModel, FormViewModel> Form()
+    public override FormResult<FormModel, FormViewModel> Form()
     {
       FormResult<FormModel, FormViewModel> formResult = new FormResult<FormModel, FormViewModel>(FormRepository, Mapper);
       formResult.ViewData = base.ViewData;
@@ -100,7 +100,7 @@ namespace Sitecore.Support.Forms.Mvc.Controllers
       return formResult;
     }
 
-    public virtual ProcessedFormResult<FormModel, FormViewModel> ProcessedForm(FormViewModel viewModel, string viewName = "")
+    public override ProcessedFormResult<FormModel, FormViewModel> ProcessedForm(FormViewModel viewModel, string viewName = "")
     {
       ProcessedFormResult<FormModel, FormViewModel> processedFormResult = new ProcessedFormResult<FormModel, FormViewModel>(FormRepository, Mapper, FormProcessor, viewModel);
       processedFormResult.ViewData = base.ViewData;
