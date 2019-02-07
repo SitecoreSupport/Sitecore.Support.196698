@@ -73,17 +73,16 @@
     <Reference Include="System.Configuration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AllowCrossSiteJsonAttribute.cs" />
     <Compile Include="FormController.cs" />
     <Compile Include="FormErrorHandlerAttribute.cs" />
     <Compile Include="InitializeRoutes.cs" />
-    <Compile Include="NotFound.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SubmittedFormHandler.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Config\Include\zzz\Sitecore.Support.196698.config" />
+    <Content Include="App_Config\Include\zzz\Sitecore.Support.196698.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="sitecore\service\notfound.aspx" />
   </ItemGroup>
   <ItemGroup>
